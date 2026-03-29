@@ -816,3 +816,4 @@ E:\Projects\Expense Tracker\backend\Expense Tracker\obj\Debug\net6.0\refint\Expe
 E:\Projects\Expense Tracker\backend\Expense Tracker\obj\Debug\net6.0\Expense Tracker.pdb
 E:\Projects\Expense Tracker\backend\Expense Tracker\obj\Debug\net6.0\Expense Tracker.genruntimeconfig.cache
 E:\Projects\Expense Tracker\backend\Expense Tracker\obj\Debug\net6.0\ref\Expense Tracker.dll
+E:\Projects\Expense Tracker\backend\Expense Tracker\obj\Debug\net6.0\staticwebassets.upToDateCheck.txt

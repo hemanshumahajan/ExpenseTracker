@@ -24,7 +24,8 @@ if (!string.IsNullOrEmpty(mysqlHost) && !string.IsNullOrEmpty(mysqlDatabase))
 }
 else
 {
-    connectionString = builder.Configuration.GetConnectionString("DefaultConnection")!;
+    connectionString = builder.Configuration.GetConnectionString("DefaultConnection")
+        ?? "server=127.0.0.1;port=3306;database=ExpenseTrackerDB;user=root;password=Hemanshu@123";
 }
 
 //DI
