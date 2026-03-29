@@ -1,0 +1,240 @@
+.page { display: flex; flex-direction: column; gap: 28px; animation: fadeUp .4s ease; }
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ── Header ─────────────────────────────────────────────── */
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.title    { font-size: 30px; font-weight: 800; letter-spacing: -1px; }
+.subtitle { font-size: 13px; color: var(--muted); margin-top: 3px; font-family: var(--font-mono); }
+
+/* ── Buttons ─────────────────────────────────────────────── */
+.btnPrimary {
+  background: var(--accent);
+  color: #fff;
+  border-radius: 9px;
+  padding: 10px 20px;
+  font-size: 13px;
+  font-weight: 700;
+  font-family: var(--font-head);
+  transition: opacity .15s, transform .15s;
+  letter-spacing: 0.2px;
+}
+.btnPrimary:hover { opacity: .88; transform: translateY(-1px); }
+.btnPrimary:disabled { opacity: .5; cursor: not-allowed; transform: none; }
+
+.btnSecondary {
+  background: var(--surface2);
+  color: var(--muted);
+  border: 1px solid var(--border);
+  border-radius: 9px;
+  padding: 10px 20px;
+  font-size: 13px;
+  font-weight: 600;
+  font-family: var(--font-head);
+  transition: color .15s;
+}
+.btnSecondary:hover { color: var(--text); }
+
+.btnEdit {
+  background: rgba(108,99,255,.15);
+  color: var(--accent);
+  border: 1px solid rgba(108,99,255,.25);
+  border-radius: 6px;
+  padding: 5px 11px;
+  font-size: 12px;
+  font-weight: 600;
+  transition: background .15s;
+}
+.btnEdit:hover { background: rgba(108,99,255,.28); }
+
+.btnDelete {
+  background: rgba(255,77,109,.12);
+  color: var(--red);
+  border: 1px solid rgba(255,77,109,.2);
+  border-radius: 6px;
+  padding: 5px 11px;
+  font-size: 12px;
+  font-weight: 600;
+  transition: background .15s;
+}
+.btnDelete:hover { background: rgba(255,77,109,.25); }
+.btnDelete:disabled { opacity: .5; cursor: not-allowed; }
+
+/* ── Table ───────────────────────────────────────────────── */
+.tableWrap {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+  overflow-x: auto;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+
+.table thead tr {
+  background: var(--surface2);
+  border-bottom: 1px solid var(--border);
+}
+
+.table th {
+  padding: 13px 18px;
+  text-align: left;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--muted);
+  font-weight: 600;
+}
+
+.table td {
+  padding: 14px 18px;
+  border-bottom: 1px solid rgba(255,255,255,.04);
+  vertical-align: middle;
+}
+
+.table tbody tr:last-child td { border-bottom: none; }
+.table tbody tr:hover td { background: rgba(255,255,255,.025); }
+
+.mono  { font-family: var(--font-mono); font-size: 13px; color: var(--muted); }
+.note  { color: var(--muted); font-size: 13px; max-width: 200px; }
+
+.catBadge {
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 4px 10px;
+  font-size: 13px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.amount { font-family: var(--font-mono); font-weight: 700; font-size: 14px; }
+.income  { color: var(--green); }
+.expense { color: var(--red); }
+
+.actions { display: flex; gap: 6px; }
+
+/* ── Category Cards Grid ──────────────────────────────────── */
+.catGrid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+
+.catSection {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+
+.catSectionHeader {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 16px 20px;
+  background: var(--surface2);
+  border-bottom: 1px solid var(--border);
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.catSectionDot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+
+.catCount {
+  margin-left: auto;
+  background: var(--border);
+  border-radius: 20px;
+  padding: 2px 9px;
+  font-size: 11px;
+  color: var(--muted);
+  font-family: var(--font-mono);
+}
+
+.catCards { display: flex; flex-direction: column; }
+
+.catCard {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 14px 20px;
+  border-bottom: 1px solid rgba(255,255,255,.04);
+  transition: background .15s;
+}
+.catCard:last-child { border-bottom: none; }
+.catCard:hover { background: rgba(255,255,255,.025); }
+
+.catCardIcon { font-size: 24px; width: 32px; text-align: center; }
+.catCardBody { flex: 1; display: flex; flex-direction: column; gap: 2px; }
+.catCardTitle { font-size: 14px; font-weight: 600; }
+.catCardType { font-size: 11px; font-family: var(--font-mono); }
+.catCardActions { display: flex; gap: 6px; }
+
+.emptySection { padding: 20px; color: var(--muted); font-size: 13px; text-align: center; }
+
+/* ── Empty / Loading ──────────────────────────────────────── */
+.emptyState {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  padding: 80px 0;
+  color: var(--muted);
+}
+
+.emptyIcon { font-size: 48px; }
+.emptyState p { font-size: 15px; }
+
+.center { display: flex; align-items: center; justify-content: center; height: 40vh; }
+
+.spinner {
+  width: 36px; height: 36px;
+  border: 3px solid var(--border);
+  border-top-color: var(--accent);
+  border-radius: 50%;
+  animation: spin .7s linear infinite;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+
+.error { color: var(--red); font-size: 14px; }
+
+/* ── Form ────────────────────────────────────────────────── */
+.form { display: flex; flex-direction: column; gap: 18px; }
+
+.label {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+}
+
+.input {
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  border-radius: 9px;
+  padding: 11px 14px;
+  font-size: 14px;
+  color: var(--text);
+  width: 100%;
+  transition: border-color .15s;
+}
+.input:focus { border-color: var(--accent); }
+.input option { background: var(--surface2); }
+
+.formActions { display: flex; gap: 10px; justify-content: flex-end; margin-top: 4px; }
+
+@media (max-width: 768px) {
+  .catGrid { grid-template-columns: 1fr; }
+}

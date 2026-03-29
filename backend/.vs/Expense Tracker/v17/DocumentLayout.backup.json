@@ -1,0 +1,71 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "E:\\Projects\\Expense Tracker\\Expense-Tracker-App-in-Asp.Net-Core-MVC-main\\Expense-Tracker-App-in-Asp.Net-Core-MVC-main\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{0B8E3BF2-A3D7-4339-94C9-B369DD9D8388}|Expense Tracker\\Expense Tracker.csproj|e:\\projects\\expense tracker\\expense-tracker-app-in-asp.net-core-mvc-main\\expense-tracker-app-in-asp.net-core-mvc-main\\expense tracker\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{0B8E3BF2-A3D7-4339-94C9-B369DD9D8388}|Expense Tracker\\Expense Tracker.csproj|solutionrelative:expense tracker\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0B8E3BF2-A3D7-4339-94C9-B369DD9D8388}|Expense Tracker\\Expense Tracker.csproj|e:\\projects\\expense tracker\\expense-tracker-app-in-asp.net-core-mvc-main\\expense-tracker-app-in-asp.net-core-mvc-main\\expense tracker\\controllers\\dashboardcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{0B8E3BF2-A3D7-4339-94C9-B369DD9D8388}|Expense Tracker\\Expense Tracker.csproj|solutionrelative:expense tracker\\controllers\\dashboardcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0B8E3BF2-A3D7-4339-94C9-B369DD9D8388}|Expense Tracker\\Expense Tracker.csproj|e:\\projects\\expense tracker\\expense-tracker-app-in-asp.net-core-mvc-main\\expense-tracker-app-in-asp.net-core-mvc-main\\expense tracker\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{0B8E3BF2-A3D7-4339-94C9-B369DD9D8388}|Expense Tracker\\Expense Tracker.csproj|solutionrelative:expense tracker\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "appsettings.json",
+              "DocumentMoniker": "E:\\Projects\\Expense Tracker\\Expense-Tracker-App-in-Asp.Net-Core-MVC-main\\Expense-Tracker-App-in-Asp.Net-Core-MVC-main\\Expense Tracker\\appsettings.json",
+              "RelativeDocumentMoniker": "Expense Tracker\\appsettings.json",
+              "ToolTip": "E:\\Projects\\Expense Tracker\\Expense-Tracker-App-in-Asp.Net-Core-MVC-main\\Expense-Tracker-App-in-Asp.Net-Core-MVC-main\\Expense Tracker\\appsettings.json",
+              "RelativeToolTip": "Expense Tracker\\appsettings.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2026-03-29T12:06:42.754Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "DashboardController.cs",
+              "DocumentMoniker": "E:\\Projects\\Expense Tracker\\Expense-Tracker-App-in-Asp.Net-Core-MVC-main\\Expense-Tracker-App-in-Asp.Net-Core-MVC-main\\Expense Tracker\\Controllers\\DashboardController.cs",
+              "RelativeDocumentMoniker": "Expense Tracker\\Controllers\\DashboardController.cs",
+              "ToolTip": "E:\\Projects\\Expense Tracker\\Expense-Tracker-App-in-Asp.Net-Core-MVC-main\\Expense-Tracker-App-in-Asp.Net-Core-MVC-main\\Expense Tracker\\Controllers\\DashboardController.cs",
+              "RelativeToolTip": "Expense Tracker\\Controllers\\DashboardController.cs",
+              "ViewState": "AgIAAGYAAAAAAAAAAAAYwHMAAAAsAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-29T12:05:32.43Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Program.cs",
+              "DocumentMoniker": "E:\\Projects\\Expense Tracker\\Expense-Tracker-App-in-Asp.Net-Core-MVC-main\\Expense-Tracker-App-in-Asp.Net-Core-MVC-main\\Expense Tracker\\Program.cs",
+              "RelativeDocumentMoniker": "Expense Tracker\\Program.cs",
+              "ToolTip": "E:\\Projects\\Expense Tracker\\Expense-Tracker-App-in-Asp.Net-Core-MVC-main\\Expense-Tracker-App-in-Asp.Net-Core-MVC-main\\Expense Tracker\\Program.cs",
+              "RelativeToolTip": "Expense Tracker\\Program.cs",
+              "ViewState": "AgIAADIAAAAAAAAAAAAAAEAAAAAiAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-29T11:46:49.792Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

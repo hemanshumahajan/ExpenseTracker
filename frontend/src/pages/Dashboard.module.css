@@ -1,0 +1,162 @@
+.page { display: flex; flex-direction: column; gap: 28px; animation: fadeUp .4s ease; }
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+}
+
+.title    { font-size: 30px; font-weight: 800; letter-spacing: -1px; }
+.subtitle { font-size: 13px; color: var(--muted); margin-top: 3px; font-family: var(--font-mono); }
+
+.dateChip {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 6px 14px;
+  font-size: 12px;
+  color: var(--muted);
+  font-family: var(--font-mono);
+}
+
+/* ── Stat Cards ─────────────────────────────────────────── */
+.statsRow {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+
+.statCard {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 24px;
+  position: relative;
+  overflow: hidden;
+  transition: transform .2s;
+}
+
+.statCard::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  background: var(--card-accent, var(--accent));
+  border-radius: var(--radius) var(--radius) 0 0;
+}
+
+.statCard:hover { transform: translateY(-2px); }
+
+.statLabel {
+  display: block;
+  font-size: 12px;
+  color: var(--muted);
+  font-family: var(--font-mono);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 10px;
+}
+
+.statValue {
+  display: block;
+  font-size: 28px;
+  font-weight: 800;
+  letter-spacing: -1px;
+}
+
+/* ── Charts ──────────────────────────────────────────────── */
+.chartsRow {
+  display: grid;
+  grid-template-columns: 1.6fr 1fr;
+  gap: 16px;
+}
+
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 24px;
+}
+
+.cardTitle {
+  font-size: 15px;
+  font-weight: 700;
+  margin-bottom: 20px;
+  letter-spacing: -0.3px;
+}
+
+/* ── Tooltip ──────────────────────────────────────────────── */
+.tooltip {
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 10px 14px;
+  font-size: 12px;
+  font-family: var(--font-mono);
+}
+
+.tooltipLabel {
+  color: var(--muted);
+  margin-bottom: 4px;
+}
+
+/* ── Transactions ─────────────────────────────────────────── */
+.txList { display: flex; flex-direction: column; gap: 2px; }
+
+.txRow {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 13px 10px;
+  border-radius: 8px;
+  transition: background .15s;
+}
+
+.txRow:hover { background: var(--surface2); }
+
+.txIcon { font-size: 22px; width: 32px; text-align: center; }
+
+.txInfo { flex: 1; display: flex; flex-direction: column; gap: 2px; }
+.txCategory { font-size: 14px; font-weight: 600; }
+.txNote { font-size: 12px; color: var(--muted); }
+.txDate { font-size: 12px; color: var(--muted); font-family: var(--font-mono); }
+
+.txAmount { font-size: 15px; font-weight: 700; font-family: var(--font-mono); }
+.income  { color: var(--green); }
+.expense { color: var(--red); }
+
+.empty {
+  text-align: center;
+  color: var(--muted);
+  padding: 40px 0;
+  font-size: 14px;
+}
+
+.center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 60vh;
+}
+
+.spinner {
+  width: 40px; height: 40px;
+  border: 3px solid var(--border);
+  border-top-color: var(--accent);
+  border-radius: 50%;
+  animation: spin .7s linear infinite;
+}
+
+@keyframes spin { to { transform: rotate(360deg); } }
+
+.error { color: var(--red); font-size: 15px; }
+
+@media (max-width: 900px) {
+  .statsRow   { grid-template-columns: 1fr; }
+  .chartsRow  { grid-template-columns: 1fr; }
+}
