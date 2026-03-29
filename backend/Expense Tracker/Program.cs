@@ -20,7 +20,7 @@ if (!string.IsNullOrEmpty(mysqlHost) && !string.IsNullOrEmpty(mysqlDatabase))
 {
     connectionString = 
         $"Server={mysqlHost};Port={mysqlPort};Database={mysqlDatabase};" +
-        $"User={mysqlUser};Password={mysqlPassword};SslMode=Required;";
+        $"User={mysqlUser};Password={mysqlPassword};SslMode=None;";
 }
 else
 {
@@ -31,7 +31,7 @@ else
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
 options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString)));
 
-// CORS — allow any origin (React dev + hosted frontend)
+// CORS ï¿½ allow any origin (React dev + hosted frontend)
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowFrontend", policy =>
