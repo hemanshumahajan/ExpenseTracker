@@ -29,7 +29,7 @@ else
 
 //DI
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
-options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString)));
+options.UseMySql(connectionString, new MySqlServerVersion(new Version(8, 0, 0))));
 
 // CORS � allow any origin (React dev + hosted frontend)
 builder.Services.AddCors(options =>

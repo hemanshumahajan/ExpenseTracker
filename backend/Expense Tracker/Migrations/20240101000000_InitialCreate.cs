@@ -1,9 +1,8 @@
-﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace Expense_Tracker.Migrations
+namespace ExpenseTrackerAPI.Migrations
 {
     public partial class InitialCreate : Migration
     {
@@ -13,8 +12,8 @@ namespace Expense_Tracker.Migrations
                 name: "Categories",
                 columns: table => new
                 {
-                    CategoryId = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                    CategoryId = table.Column<int>(nullable: false)
+                        .Annotation("MySQL:ValueGenerationStrategy", MySql.EntityFrameworkCore.ValueGenerationStrategy.IdentityColumn),
                     Title = table.Column<string>(type: "nvarchar(50)", nullable: false),
                     Icon = table.Column<string>(type: "nvarchar(5)", nullable: false),
                     Type = table.Column<string>(type: "nvarchar(10)", nullable: false)
@@ -28,12 +27,12 @@ namespace Expense_Tracker.Migrations
                 name: "Transactions",
                 columns: table => new
                 {
-                    TransactionId = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    CategoryId = table.Column<int>(type: "int", nullable: false),
-                    Amount = table.Column<int>(type: "int", nullable: false),
+                    TransactionId = table.Column<int>(nullable: false)
+                        .Annotation("MySQL:ValueGenerationStrategy", MySql.EntityFrameworkCore.ValueGenerationStrategy.IdentityColumn),
+                    CategoryId = table.Column<int>(nullable: false),
+                    Amount = table.Column<int>(nullable: false),
                     Note = table.Column<string>(type: "nvarchar(75)", nullable: true),
-                    Date = table.Column<DateTime>(type: "datetime2", nullable: false)
+                    Date = table.Column<DateTime>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -54,11 +53,8 @@ namespace Expense_Tracker.Migrations
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropTable(
-                name: "Transactions");
-
-            migrationBuilder.DropTable(
-                name: "Categories");
+            migrationBuilder.DropTable(name: "Transactions");
+            migrationBuilder.DropTable(name: "Categories");
         }
     }
 }
