@@ -1,0 +1,15 @@
+# Backend
+backend/Expense Tracker/bin/
+backend/Expense Tracker/obj/
+backend/Expense Tracker/Migrations/
+backend/Expense Tracker/appsettings.json
+backend/Expense Tracker/appsettings.Development.json
+
+# Frontend
+frontend/node_modules/
+frontend/build/
+frontend/.env
+
+# OS
+.DS_Store
+Thumbs.db
