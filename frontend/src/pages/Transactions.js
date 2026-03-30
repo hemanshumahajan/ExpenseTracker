@@ -109,13 +109,13 @@ export default function Transactions() {
             <tbody>
               {rows.map((t, i) => {
                 const cat = getCat(t.categoryId);
-                const isIncome = cat?.type === 'Income';
+                const isIncome = (typeof t.type === 'string' ? t.type : cat?.type) === 'Income';
                 return (
                   <tr key={t.transactionId}>
                     <td className={styles.mono}>{i + 1}</td>
                     <td>
                       <span className={styles.catBadge}>
-                        {t.icon || cat?.icon} {t.category || cat?.title}
+                        {t.icon || cat?.icon} {typeof t.category === 'object' ? t.category?.title : (t.category || cat?.title)}
                       </span>
                     </td>
                     <td className={styles.note}>{t.note || '—'}</td>
