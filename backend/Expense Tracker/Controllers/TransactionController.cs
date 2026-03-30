@@ -1,87 +1,58 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using Expense_Tracker.Models;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using Expense_Tracker.Models;
 
 namespace Expense_Tracker.Controllers
 {
-    public class TransactionController : Controller
+    [ApiController]
+    [Route("api/[controller]")]
+    public class TransactionController : ControllerBase
     {
         private readonly ApplicationDbContext _context;
+        public TransactionController(ApplicationDbContext context) => _context = context;
 
-        public TransactionController(ApplicationDbContext context)
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<Transaction>>> GetTransactions() =>
+            await _context.Transactions.Include(t => t.Category).ToListAsync();
+
+        [HttpGet("{id}")]
+        public async Task<ActionResult<Transaction>> GetTransaction(int id)
         {
-            _context = context;
+            var t = await _context.Transactions.Include(t => t.Category)
+                                               .FirstOrDefaultAsync(t => t.TransactionId == id);
+            return t == null ? NotFound() : t;
         }
 
-        // GET: Transaction
-        public async Task<IActionResult> Index()
-        {
-            var applicationDbContext = _context.Transactions.Include(t => t.Category);
-            return View(await applicationDbContext.ToListAsync());
-        }
-
-        // GET: Transaction/AddOrEdit
-        public IActionResult AddOrEdit(int id = 0)
-        {
-            PopulateCategories();
-            if (id == 0)
-                return View(new Transaction());
-            else
-                return View(_context.Transactions.Find(id));
-        }
-
-        // POST: Transaction/AddOrEdit
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> AddOrEdit([Bind("TransactionId,CategoryId,Amount,Note,Date")] Transaction transaction)
+        public async Task<ActionResult<Transaction>> CreateTransaction(Transaction transaction)
         {
-            if (ModelState.IsValid)
-            {
-                if (transaction.TransactionId == 0)
-                    _context.Add(transaction);
-                else
-                    _context.Update(transaction);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
-            }
-            PopulateCategories();
-            return View(transaction);
-        }
-
-        // POST: Transaction/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
-        {
-            if (_context.Transactions == null)
-            {
-                return Problem("Entity set 'ApplicationDbContext.Transactions'  is null.");
-            }
-            var transaction = await _context.Transactions.FindAsync(id);
-            if (transaction != null)
-            {
-                _context.Transactions.Remove(transaction);
-            }
-
+            _context.Transactions.Add(transaction);
             await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            return CreatedAtAction(nameof(GetTransaction), new { id = transaction.TransactionId }, transaction);
         }
 
-
-        [NonAction]
-        public void PopulateCategories()
+        [HttpPut("{id}")]
+        public async Task<IActionResult> UpdateTransaction(int id, Transaction transaction)
         {
-            var CategoryCollection = _context.Categories.ToList();
-            Category DefaultCategory = new Category() { CategoryId = 0, Title = "Choose a Category" };
-            CategoryCollection.Insert(0, DefaultCategory);
-            ViewBag.Categories = CategoryCollection;
+            if (id != transaction.TransactionId) return BadRequest();
+            _context.Entry(transaction).State = EntityState.Modified;
+            try { await _context.SaveChangesAsync(); }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!_context.Transactions.Any(e => e.TransactionId == id)) return NotFound();
+                throw;
+            }
+            return NoContent();
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteTransaction(int id)
+        {
+            var transaction = await _context.Transactions.FindAsync(id);
+            if (transaction == null) return NotFound();
+            _context.Transactions.Remove(transaction);
+            await _context.SaveChangesAsync();
+            return NoContent();
         }
     }
 }

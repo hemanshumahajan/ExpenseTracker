@@ -5,115 +5,96 @@ using System.Globalization;
 
 namespace Expense_Tracker.Controllers
 {
-    public class DashboardController : Controller
+    [ApiController]
+    [Route("api/[controller]")]
+    public class DashboardController : ControllerBase
     {
-
         private readonly ApplicationDbContext _context;
+        public DashboardController(ApplicationDbContext context) => _context = context;
 
-        public DashboardController(ApplicationDbContext context)
+        [HttpGet]
+        public async Task<ActionResult<object>> GetDashboardData()
         {
-            _context = context;
-        }
+            DateTime startDate = DateTime.Today.AddDays(-6);
+            DateTime endDate = DateTime.Today;
 
-        public async Task<ActionResult> Index()
-        {
-            //Last 7 Days
-            DateTime StartDate = DateTime.Today.AddDays(-6);
-            DateTime EndDate = DateTime.Today;
-
-            List<Transaction> SelectedTransactions = await _context.Transactions
-                .Include(x => x.Category)
-                .Where(y => y.Date >= StartDate && y.Date <= EndDate)
+            var selectedTransactions = await _context.Transactions
+                .Include(t => t.Category)
+                .Where(t => t.Date >= startDate && t.Date <= endDate)
                 .ToListAsync();
 
-            //Total Income
-            int TotalIncome = SelectedTransactions
-                .Where(i => i.Category.Type == "Income")
-                .Sum(j => j.Amount);
-            ViewBag.TotalIncome = TotalIncome.ToString("C0");
+            int totalIncome  = selectedTransactions.Where(t => t.Category!.Type == "Income").Sum(t => t.Amount);
+            int totalExpense = selectedTransactions.Where(t => t.Category!.Type == "Expense").Sum(t => t.Amount);
+            int balance      = totalIncome - totalExpense;
 
-            //Total Expense
-            int TotalExpense = SelectedTransactions
-                .Where(i => i.Category.Type == "Expense")
-                .Sum(j => j.Amount);
-            ViewBag.TotalExpense = TotalExpense.ToString("C0");
-
-            //Balance
-            int Balance = TotalIncome - TotalExpense;
             CultureInfo culture = CultureInfo.CreateSpecificCulture("en-US");
             culture.NumberFormat.CurrencyNegativePattern = 1;
-            ViewBag.Balance = String.Format(culture, "{0:C0}", Balance);
+            string formattedBalance = String.Format(culture, "{0:C0}", balance);
 
-            //Doughnut Chart - Expense By Category
-            ViewBag.DoughnutChartData = SelectedTransactions
-                .Where(i => i.Category.Type == "Expense")
-                .GroupBy(j => j.Category.CategoryId)
-                .Select(k => new
+            var doughnutChartData = selectedTransactions
+                .Where(t => t.Category!.Type == "Expense")
+                .GroupBy(t => t.Category!.CategoryId)
+                .Select(g => new
                 {
-                    categoryTitleWithIcon = k.First().Category.Icon + " " + k.First().Category.Title,
-                    amount = k.Sum(j => j.Amount),
-                    formattedAmount = k.Sum(j => j.Amount).ToString("C0"),
+                    categoryTitleWithIcon = g.First().Category!.Icon + " " + g.First().Category!.Title,
+                    amount = g.Sum(t => t.Amount),
+                    formattedAmount = g.Sum(t => t.Amount).ToString("C0")
                 })
-                .OrderByDescending(l => l.amount)
+                .OrderByDescending(x => x.amount)
                 .ToList();
 
-            //Spline Chart - Income vs Expense
-
-            //Income
-            List<SplineChartData> IncomeSummary = SelectedTransactions
-                .Where(i => i.Category.Type == "Income")
-                .GroupBy(j => j.Date)
-                .Select(k => new SplineChartData()
-                {
-                    day = k.First().Date.ToString("dd-MMM"),
-                    income = k.Sum(l => l.Amount)
-                })
+            var incomeSummary = selectedTransactions
+                .Where(t => t.Category!.Type == "Income")
+                .GroupBy(t => t.Date)
+                .Select(g => new SplineChartData { day = g.First().Date.ToString("dd-MMM"), income = g.Sum(t => t.Amount) })
                 .ToList();
 
-            //Expense
-            List<SplineChartData> ExpenseSummary = SelectedTransactions
-                .Where(i => i.Category.Type == "Expense")
-                .GroupBy(j => j.Date)
-                .Select(k => new SplineChartData()
-                {
-                    day = k.First().Date.ToString("dd-MMM"),
-                    expense = k.Sum(l => l.Amount)
-                })
+            var expenseSummary = selectedTransactions
+                .Where(t => t.Category!.Type == "Expense")
+                .GroupBy(t => t.Date)
+                .Select(g => new SplineChartData { day = g.First().Date.ToString("dd-MMM"), expense = g.Sum(t => t.Amount) })
                 .ToList();
 
-            //Combine Income & Expense
-            string[] Last7Days = Enumerable.Range(0, 7)
-                .Select(i => StartDate.AddDays(i).ToString("dd-MMM"))
+            string[] last7Days = Enumerable.Range(0, 7)
+                .Select(i => startDate.AddDays(i).ToString("dd-MMM"))
                 .ToArray();
 
-            ViewBag.SplineChartData = from day in Last7Days
-                                      join income in IncomeSummary on day equals income.day into dayIncomeJoined
-                                      from income in dayIncomeJoined.DefaultIfEmpty()
-                                      join expense in ExpenseSummary on day equals expense.day into expenseJoined
-                                      from expense in expenseJoined.DefaultIfEmpty()
-                                      select new
-                                      {
-                                          day = day,
-                                          income = income == null ? 0 : income.income,
-                                          expense = expense == null ? 0 : expense.expense,
-                                      };
-            //Recent Transactions
-            ViewBag.RecentTransactions = await _context.Transactions
-                .Include(i => i.Category)
-                .OrderByDescending(j => j.Date)
+            var splineChartData = from day in last7Days
+                                  join income  in incomeSummary  on day equals income.day  into incomeJoin
+                                  from income  in incomeJoin.DefaultIfEmpty()
+                                  join expense in expenseSummary on day equals expense.day into expenseJoin
+                                  from expense in expenseJoin.DefaultIfEmpty()
+                                  select new SplineChartData
+                                  {
+                                      day     = day,
+                                      income  = income  == null ? 0 : income.income,
+                                      expense = expense == null ? 0 : expense.expense
+                                  };
+
+            var recentTransactions = await _context.Transactions
+                .Include(t => t.Category)
+                .OrderByDescending(t => t.Date)
                 .Take(5)
+                .Select(t => new
+                {
+                    t.TransactionId,
+                    t.Amount,
+                    t.Note,
+                    t.Date,
+                    category = t.Category!.Title,
+                    icon     = t.Category.Icon,
+                    type     = t.Category.Type
+                })
                 .ToListAsync();
 
-
-            return View();
+            return Ok(new { totalIncome, totalExpense, balance, formattedBalance, doughnutChartData, splineChartData, recentTransactions });
         }
     }
 
     public class SplineChartData
     {
-        public string day { get; set; } = "";
-        public int income {get; set; }
-        public int expense { get; set; }    
-
+        public string day     { get; set; } = "";
+        public int    income  { get; set; }
+        public int    expense { get; set; }
     }
 }
